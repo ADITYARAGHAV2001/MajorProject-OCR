@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Optical Character Recognition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: grey;
+        }
+
+        h1 {
+            padding-left: 35%;
+        }
+
+
+        .maincontainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            margin-top: -50px;
+        }
+
+        .container {
+            display: flex;
+            align-items: flex-start;
+            width: 80%;
+        }
+
+        .left-section {
+            width: 300px;
+            height: 400px;
+            flex: 1;
+            margin-right: 20px;
+            padding-left: 10px;
+            max-width: 50%;
+            max-height: 50%;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .right-section {
+            padding-left: 10px;
+            width: 300px;
+            height: 300px;
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .right-section p {
+            margin-top: 0;
+        }
+
+        .upload-form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Optical Character Reader</h1>
+
+    <div class="maincontainer">
+        <div class="container">
+
+            <div class="left-section">
+                <h2>Upload an Image</h2>
+                <form action="/" method="post" enctype="multipart/form-data" class="upload-form">
+                    <input type="file" name="image" accept="image/*">
+                    <input type="submit" value="Upload">
+                </form>
+                <img src="#" alt="Uploaded Image" id="uploaded-image" style="display: none; width: 100%;">
+            </div>
+
+            <div class="right-section">
+                <h2>Result Output</h2>
+                <div>
+                    <p id="dynamic-text">{{ dynamic_text }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to handle file upload
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const img = document.getElementById('uploaded-image');
+                img.src = e.target.result;
+                img.style.display = 'block';
+            }
+
+            reader.readAsDataURL(file);
+        }
+
+        // Attach event listener to file input
+        document.querySelector('input[type="file"]').addEventListener('change', handleFileUpload);
+    </script>
+</body>
+
+</html>
